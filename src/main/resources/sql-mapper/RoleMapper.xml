@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.winterchen.dao.RoleDao">
+
+    <sql id="USER_ROLE_COLUMN">
+        ur.uid, ur.rid
+    </sql>
+    <sql id="USER_ROLE_TABLE">
+        U_USER_ROLE
+    </sql>
+    <sql id="ROLE_COLUMN">
+        r.id, r.name, r.type
+    </sql>
+    <sql id="ROLE_TABLE">
+        U_ROLE
+    </sql>
+
+    <!-- 根据用户id查找对应的角色 -->
+    <select id="getRoleByUserId" resultType="com.winterchen.model.RoleDomain">
+        SELECT
+        <include refid="ROLE_COLUMN"/>
+        FROM
+        <include refid="ROLE_TABLE"/> AS r
+        WHERE
+        r.id IN
+        (
+            SELECT
+            ur.rid
+            FROM
+            <include refid="USER_ROLE_TABLE"/>
+            ur
+            WHERE ur.uid = #{uid, jdbcType=BIGINT}
+        )
+    </select>
+</mapper>
