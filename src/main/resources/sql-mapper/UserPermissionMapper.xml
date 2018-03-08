@@ -7,7 +7,7 @@
     </sql>
 
     <sql id="BASE_TABLE">
-        U_PERMISSION
+        u_permission
     </sql>
 
     <sql id="ROLE_PERMISSION_COLUMN">
@@ -15,7 +15,7 @@
     </sql>
 
     <sql id="ROLE_PERMISSION_TABLE">
-        U_ROLE_PERMISSION
+        u_role_permission
     </sql>
 
     <sql id="ROLE_TABLE">

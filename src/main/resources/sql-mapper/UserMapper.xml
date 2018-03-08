@@ -8,7 +8,7 @@
     </sql>
 
     <sql id="TABLE_USER">
-        U_USER
+        u_user
     </sql>
 
     <update id="updateById" parameterType="com.winterchen.model.UserDomain">

@@ -146,6 +146,7 @@ public class ShiroConfig {
     /**
      * RedisSessionDAO shiro sessionDao层的实现 通过redis
      */
+    @Bean
     public RedisSessionDAO redisSessionDAO() {
         RedisSessionDAO redisSessionDAO = new RedisSessionDAO();
         redisSessionDAO.setRedisManager(redisManager());
@@ -155,6 +156,7 @@ public class ShiroConfig {
     /**
      * shiro session的管理
      */
+    @Bean
     public DefaultWebSessionManager SessionManager() {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         sessionManager.setSessionDAO(redisSessionDAO());

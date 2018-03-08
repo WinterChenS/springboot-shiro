@@ -22,14 +22,15 @@ public class UserDomain extends SerializableSerializer {
     public UserDomain() {
     }
 
-    public UserDomain(Long id, String nickname, String email, String pswd, Date createTime, Date lastLoginTime, Long status) {
-        this.id = id;
-        this.nickname = nickname;
-        this.email = email;
-        this.pswd = pswd;
-        this.createTime = createTime;
-        this.lastLoginTime = lastLoginTime;
-        this.status = status;
+    public UserDomain(UserDomain user) {
+        super();
+        this.id = user.id;
+        this.nickname = user.nickname;
+        this.email = user.email;
+        this.pswd = user.pswd;
+        this.createTime = user.createTime;
+        this.lastLoginTime = user.lastLoginTime;
+        this.status = user.status;
     }
 
     public Long getId() {

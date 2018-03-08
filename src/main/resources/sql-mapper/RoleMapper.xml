@@ -6,13 +6,13 @@
         ur.uid, ur.rid
     </sql>
     <sql id="USER_ROLE_TABLE">
-        U_USER_ROLE
+        u_user_role
     </sql>
     <sql id="ROLE_COLUMN">
         r.id, r.name, r.type
     </sql>
     <sql id="ROLE_TABLE">
-        U_ROLE
+        u_role
     </sql>
 
     <!-- 根据用户id查找对应的角色 -->
