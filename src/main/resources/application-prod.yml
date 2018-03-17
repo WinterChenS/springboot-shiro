@@ -46,6 +46,8 @@ spring:
           max-idle: 8
           min-idle: 0
         timeout: 24000
+    aop:
+      proxy-target-class: true
 mybatis:
   mapper-locations: classpath:sql-mapper/*.xml
   type-aliases-package: com.winterchen.model
