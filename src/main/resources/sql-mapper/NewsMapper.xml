@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.winterchen.dao.NewsDao">
+    <sql id="NEWS_TABLE">
+      t_news
+    </sql>
+    <sql id="TAG_TABLE">
+      t_tag
+    </sql>
+    <sql id="NEWS_TAG">
+      news_tag
+    </sql>
+    <sql id="NEWS_BASE_CLOUMN">
+      n.id,n.newsTitle,n.newsContent,n.headerPic,n.contentPic,n.contentSize,n.reporter,n.resportTime,
+      n.lookCount,n.tags,n.sourceFrom,n.creater,n.createTime,n.modifyer,n.modifyTime
+    </sql>
+    <sql id="TAG_BASE_CLOUMN">
+      t.tagId,t.tagName,t.tagPic
+    </sql>
+
+    <!-- 添加新闻 -->
+    <insert id="batchAddNews" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+        <include refid="NEWS_TABLE"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            newsTitle,
+            newsContent,
+            <if test="headerPic != null">
+                headerPic,
+            </if>
+            <if test="contentPic != null">
+                contentPic,
+            </if>
+            <if test="contentSize != null">
+                contentSize,
+            </if>
+            <if test="reporter != null">
+                reporter,
+            </if>
+            <if test="resportTime != null">
+                resportTime,
+            </if>
+            <if test="lookCount != null">
+                lookCount,
+            </if>
+            <if test="tags != null">
+                tags,
+            </if>
+            <if test="sourceFrom != null">
+                sourceFrom,
+            </if>
+            <if test="creater != null">
+                creater,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+        </trim>
+        VALUES
+        <foreach collection="list" item="newsDomain" index="index" separator=",">
+            (
+            <trim suffix="" suffixOverrides=",">
+                #{newsDomain.newsTitle, jdbcType=VARCHAR},
+                #{newsDomain.newsContent, jdbcType=VARCHAR},
+                <if test="newsDomain.headerPic != null">
+                    #{newsDomain.headerPic, jdbcType=VARCHAR},
+                </if>
+                <if test="newsDomain.contentPic != null">
+                    #{newsDomain.contentPic, jdbcType=VARCHAR},
+                </if>
+                <if test="newsDomain.contentSize != null">
+                    #{newsDomain.contentSize, jdbcType=INTEGER},
+                </if>
+                <if test="newsDomain.reporter != null">
+                    #{newsDomain.reporter, jdbcType=VARCHAR},
+                </if>
+                <if test="resportTime != null">
+                    #{newsDomain.resportTime, jdbcType=VARCHAR},
+                </if>
+                <if test="newsDomain.lookCount != null">
+                    #{newsDomain.lookCount, jdbcType=INTEGER},
+                </if>
+                <if test="newsDomain.tags != null">
+                    #{newsDomain.tags, jdbcType=VARCHAR},
+                </if>
+                <if test="newsDomain.sourceFrom != null">
+                    #{newsDomain.sourceFrom, jdbcType=VARCHAR},
+                </if>
+                <if test="newsDomain.creater != null">
+                    #{newsDomain.creater, jdbcType=VARCHAR},
+                </if>
+                <if test="newsDomain.createTime != null">
+                    #{newsDomain.createTime, jdbcType=TIMESTAMP},
+                </if>
+            </trim>
+
+            )
+        </foreach>
+
+
+    </insert>
+
+
+    <!-- 删除新闻 -->
+    <delete id="deleteNews">
+        DELETE FROM
+        <include refid="NEWS_TABLE"/>
+        <where>
+            <if test="id != null">
+                id = #{id, jdbcType=INTEGER}
+            </if>
+            <if test="startTime != null">
+                createTime &gt;= #{startTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="endTime != null">
+                createTime &lt;= #{endTime, jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </delete>
+
+
+    <select id="getNews" resultType="com.winterchen.model.NewsDomain">
+        SELECT
+            <include refid="NEWS_BASE_CLOUMN"/>
+        FROM
+          <include refid="NEWS_TABLE"/> n
+        ORDER BY
+        n.createTime DESC
+    </select>
+    
+    <select id="getNewById" resultType="com.winterchen.model.NewsDomain">
+        SELECT
+          <include refid="NEWS_BASE_CLOUMN"/>
+        FROM
+          <include refid="NEWS_TABLE"/> n
+        WHERE n.id = #{id, jdbcType=INTEGER}
+    </select>
+
+
+
+</mapper>

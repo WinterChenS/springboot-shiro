@@ -1,9 +1,5 @@
 server:
   port: 1111
-  ssl:
-      key-store: classpath:214534400030478.pfx
-      key-store-password: 214534400030478
-      keyStoreType: PKCS12
 
 spring:
     datasource:
