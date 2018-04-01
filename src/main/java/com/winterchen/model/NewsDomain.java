@@ -10,6 +10,7 @@ public class NewsDomain {
     private Integer id;
     private String newsTitle;
     private String newsContent;
+    private String contentPreview;
     private String headerPic;
     private String contentPic;
     private Integer contentSize;
@@ -45,6 +46,14 @@ public class NewsDomain {
 
     public void setNewsContent(String newsContent) {
         this.newsContent = newsContent;
+    }
+
+    public String getContentPreview() {
+        return contentPreview;
+    }
+
+    public void setContentPreview(String contentPreview) {
+        this.contentPreview = contentPreview;
     }
 
     public String getHeaderPic() {

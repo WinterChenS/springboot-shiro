@@ -11,7 +11,7 @@
       news_tag
     </sql>
     <sql id="NEWS_BASE_CLOUMN">
-      n.id,n.newsTitle,n.newsContent,n.headerPic,n.contentPic,n.contentSize,n.reporter,n.resportTime,
+      n.id,n.newsTitle,n.contentPreview,n.headerPic,n.contentPic,n.contentSize,n.reporter,n.resportTime,
       n.lookCount,n.tags,n.sourceFrom,n.creater,n.createTime,n.modifyer,n.modifyTime
     </sql>
     <sql id="TAG_BASE_CLOUMN">
@@ -25,6 +25,9 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             newsTitle,
             newsContent,
+            <if test="contentPreview != null">
+                contentPreview,
+            </if>
             <if test="headerPic != null">
                 headerPic,
             </if>
@@ -62,6 +65,9 @@
             <trim suffix="" suffixOverrides=",">
                 #{newsDomain.newsTitle, jdbcType=VARCHAR},
                 #{newsDomain.newsContent, jdbcType=VARCHAR},
+                <if test="newsDomain.contentPreview != null">
+                    #{newsDomain.contentPreview, jdbcType=VARCHAR},
+                </if>
                 <if test="newsDomain.headerPic != null">
                     #{newsDomain.headerPic, jdbcType=VARCHAR},
                 </if>
@@ -130,7 +136,8 @@
     
     <select id="getNewById" resultType="com.winterchen.model.NewsDomain">
         SELECT
-          <include refid="NEWS_BASE_CLOUMN"/>
+          <include refid="NEWS_BASE_CLOUMN"/>,
+          n.newsContent
         FROM
           <include refid="NEWS_TABLE"/> n
         WHERE n.id = #{id, jdbcType=INTEGER}

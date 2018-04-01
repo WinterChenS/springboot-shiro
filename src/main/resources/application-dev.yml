@@ -4,7 +4,7 @@ server:
 spring:
     datasource:
         name: test
-        url: jdbc:mysql://127.0.0.1:3306/mytest
+        url: jdbc:mysql://118.25.36.41:3306/winterdb
         username: root
         password: 5236320
         # 使用druid数据源
@@ -45,6 +45,12 @@ spring:
         timeout: 24000
     aop:
        proxy-target-class: true
+    http:
+       multipart:
+        enabled: true
+        max-file-size: 50mb
+        max-request-size: 50mb
+
 mybatis:
   mapper-locations: classpath:sql-mapper/*.xml
   type-aliases-package: com.winterchen.model
@@ -52,7 +58,7 @@ mybatis:
 #pagehelper分页插件
 pagehelper:
     helperDialect: mysql
-    reasonable: true
+    reasonable: false
     supportMethodsArguments: true
     params: count=countSql
 

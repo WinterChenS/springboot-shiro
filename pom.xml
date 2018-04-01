@@ -153,6 +153,12 @@
 			<artifactId>disruptor</artifactId>
 			<version>3.3.6</version>
 		</dependency>
+		<!-- 腾讯云对象存储 -->
+		<dependency>
+			<groupId>com.qcloud</groupId>
+			<artifactId>cos_api</artifactId>
+			<version>5.2.4</version>
+		</dependency>
 
 	</dependencies>
 

@@ -1,5 +1,6 @@
 package com.winterchen.service.news.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.winterchen.dao.NewsDao;
 import com.winterchen.model.NewsDomain;
 import com.winterchen.service.news.NewsService;
@@ -30,7 +31,9 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public List<NewsDomain> getNews(int pageNum, int pageSize) {
-        return newsDao.getNews();
+        PageHelper.startPage(pageNum, pageSize);
+        List<NewsDomain> news = newsDao.getNews();
+        return news;
     }
 
     @Override

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.winterchen.dao.FileInfoDao">
+    <sql id="TABLE_BASE">
+        t_file_info
+    </sql>
+
+    <sql id="FILE_INFO_COLUMN">
+        f.id,f.fileName,f.fileTitle,f.url,f.fileType,f.fileSize,f.fileFrom,f.whoUse,
+        f.tags,f.state,f.description,f.creater,f.createTime,f.modifyer,f.modifyTime
+    </sql>
+
+    <insert id="addFileInfo" parameterType="com.winterchen.model.FileInfoDomain">
+        INSERT INTO
+        <include refid="TABLE_BASE"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="fileName != null">
+                fileName,
+            </if>
+            <if test="fileTitle != null">
+                fileTitle,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="fileType != null">
+                fileType,
+            </if>
+            <if test="fileSize != null">
+                fileSize,
+            </if>
+            <if test="fileFrom != null">
+                fileFrom,
+            </if>
+            <if test="whoUse != null">
+                whoUse,
+            </if>
+            <if test="tags != null">
+                tags,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="creater != null">
+                creater,
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            <if test="fileName != null">
+                #{fileName, jdbcType=VARCHAR},
+            </if>
+            <if test="fileTitle != null">
+                #{fileTitle, jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url, jdbcType=VARCHAR},
+            </if>
+            <if test="fileType != null">
+                #{fileType, jdbcType=VARCHAR},
+            </if>
+            <if test="fileSize != null">
+                #{fileSize, jdbcType=BIGINT},
+            </if>
+            <if test="fileFrom != null">
+                #{fileFrom, jdbcType=VARCHAR},
+            </if>
+            <if test="whoUse != null">
+                #{whoUse, jdbcType=VARCHAR},
+            </if>
+            <if test="tags != null">
+                #{tags, jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                #{state, jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                #{description, jdbcType=VARCHAR},
+            </if>
+            <if test="creater != null">
+                #{creater, jdbcType=VARCHAR},
+                NOW(),
+            </if>
+
+        </trim>
+    </insert>
+
+    <delete id="deleteFileInfo">
+       DELETE FROM
+       <include refid="TABLE_BASE"/>
+       WHERE
+       id = #{id, jdbcType=INTEGER}
+    </delete>
+    
+    <update id="updateFileInfo" parameterType="com.winterchen.model.FileInfoDomain">
+        UPDATE
+        <include refid="TABLE_BASE"/>
+        <set>
+            <if test="fileName != null">
+                fileName = #{fileName, jdbcType=VARCHAR},
+            </if>
+            <if test="fileTitle != null">
+                fileTitle = #{fileTitle, jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url, jdbcType=VARCHAR},
+            </if>
+            <if test="fileType != null">
+                fileType = #{fileType, jdbcType=VARCHAR},
+            </if>
+            <if test="fileSize != null">
+                fileSize = #{fileSize, jdbcType=BIGINT},
+            </if>
+            <if test="fileFrom != null">
+                fileFrom = #{fileFrom, jdbcType=VARCHAR},
+            </if>
+            <if test="whoUse != null">
+                whoUse = #{whoUse, jdbcType=VARCHAR},
+            </if>
+            <if test="tags != null">
+                tags = #{tags, jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                state = #{state, jdbcType=INTEGER},
+            </if>
+            <if test="description != null">
+                description = #{description, jdbcType=VARCHAR},
+            </if>
+            <if test="modifyer != null">
+                modifyer = #{modifyer, jdbcType=VARCHAR},
+                NOW(),
+            </if>
+        </set>
+    </update>
+
+    <select id="getFileInfos" resultType="com.winterchen.model.FileInfoDomain"
+            parameterType="com.winterchen.dto.cond.FileInfoCond">
+        SELECT
+            <include refid="FILE_INFO_COLUMN"/>
+        FROM
+            <include refid="TABLE_BASE"/> f
+        <where>
+           <if test="id != null">
+                AND f.id = #{id, jdbcType=INTEGER}
+           </if>
+            <if test="fileName != null">
+                AND f.fileName LIKE CONCAT('%',#{fileName, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="fileTitle != null">
+                AND f.fileTitle LIKE CONCAT('%',#{fileTitle, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="fileType != null">
+                AND f.fileType = #{fileType, jdbcType=VARCHAR}
+            </if>
+            <if test="minfileSize != null">
+                AND f.fileSize &gt;= #{minfileSize, jdbcType=BIGINT}
+            </if>
+            <if test="maxFileSize != null">
+                AND f.fileSize &lt;= #{maxfileSize, jdbcType=BIGINT}
+            </if>
+            <if test="fileFrom != null">
+                AND f.fileFrom LIKE CONCAT('%',#{fileFrom, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="whoUse != null">
+                AND f.whoUse LIKE CONCAT('%',#{whoUse, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="tags != null">
+                AND f.tags LIKE CONCAT('%',#{tags, jdbcType=VARCHAR},'%')
+            </if>
+            <if test="state != null">
+                AND f.state = #{state, jdbcType=INTEGER}
+            </if>
+            <if test="startTime != null">
+                AND f.createTime &gt;= #{startTime, jdbcType=TIMESTAMP}
+            </if>
+            <if test="endTime != null">
+                AND f.createTime &lt;= #{endTime, jdbcType=TIMESTAMP}
+            </if>
+        </where>
+        ORDER BY f.createTime
+    </select>
+
+    
+</mapper>
